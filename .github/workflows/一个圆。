@@ -1,0 +1,41 @@
+#include<iostream>
+
+#include<windows.h>
+
+#include<conio.h>
+
+using namespace std;
+
+int main(int argc, char* argv[])
+
+{
+
+char arg[200]={0};
+
+arg[0]='\"';
+
+strcpy(arg+1, argv[0]);
+
+int len=int(strlen(arg));
+
+arg[len]='\"';
+
+HWND hWnd=FindWindow(NULL, arg); //找到程序运行窗口的句柄
+
+HDC hDC=GetDC(hWnd);//通过窗口句柄得到该窗口的设备场境句柄
+
+HPEN hPen, hOldPen; //画笔
+
+hPen=CreatePen(PS_SOLID, 2, 0x00ff00);//生成绿色画笔
+
+hOldPen=(HPEN)SelectObject(hDC, hPen);//把画笔引入设备场境
+
+Arc(hDC, 100, 100, 300, 300, 350, 500, 350, 500);//画圆
+
+SelectObject(hDC, hOldPen);
+
+cout<<"画圆形："<<endl; getch();
+
+return 0;
+
+}
